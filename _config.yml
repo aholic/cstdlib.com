@@ -1,0 +1,12 @@
+# Site settings
+title: 标准酷
+email: ruochen.xu@gmail.com
+description: "This is cstdlib.com"
+baseurl: ""
+url: "http://cstdlib.com"
+port: 8080
+detach: TRUE
+
+# Build settings
+markdown: kramdown
+permalink: pretty
