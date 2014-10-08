@@ -53,7 +53,7 @@ vector<pair<string, int> > topWords = GetTopWords(GetWordCounter("input.txt"), 1
 但是情况也没有想象的那么糟糕，因为编译器能优化其中的部分问题。
 下面主要介绍一下**`(N)RVO`**和**`Copy Elision`**。
 
-##### **(N)RVO** #####
+#### **(N)RVO** ####
 (N)RVO全称是**`(Named)Return Value Optimization`**，即**`（具名）返回值优化`**。
 RVO指的是编译器让调用函数在其栈上分配空间，然后将这块内存的地址传递给被调函数，被调函数直接在这块内存上构造返回值。
 这样就消除从函数内部return出来时临时对象的复制问题。例如如下代码：
@@ -84,7 +84,7 @@ Foo getFoo() {Foo foo(1024); return foo;}
 Foo foo = getFoo();
 {% endhighlight %}
 
-##### **Copy Elision** #####
+#### **Copy Elision** ####
 Copy Elision，即**`复制省略`**。
 复制省略指的是，当函数参数以值传递的方式传入函数内部时，通常要求建立一份参数的拷贝。
 当传入的参数是右值时，则无需建立这样一份拷贝，直接使用源对象即可。例如如下代码：
@@ -103,7 +103,7 @@ useFoo(Foo(10));
 然后把这个`Foo`对象拷贝到函数内部。也就是需要1次构造，1次复制。
 而由于和(N)RVO类似的原理，有了Copy Elision，只需要1次构造。
 
-##### **写在最后** #####
+#### **写在最后** ####
 (N)RVO和Copy Elision都只能解决部分临时对象的问题。
 例如以下代码，Copy Elision便无能为力了：
 
