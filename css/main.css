@@ -217,8 +217,9 @@ a:visited { color: #205caa; }
   margin: 30px 0;
 }
 
-.post-content ul,
-.post-content ol { padding-left: 20px; }
+.post-content ul { padding-left: 20px; }
+
+.post-content ol { padding-left: 5px; }
 
 .post pre,
 .post code {
