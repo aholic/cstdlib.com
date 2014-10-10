@@ -120,7 +120,7 @@ useFoo(foo);
 
 在上面代码中，将`foo`传入函数`useFoo`时，复制省略无法被启用，
 因为源对象以后还会被用到，所以不能直接使用源对象。
-为了彻底的解决临时对象效率的问题，请看[C++11的移动语义和右值引用](http://cstdlib.com/jekyll/update/2014/07/12/new-features-in-c++11/)。
+为了彻底的解决临时对象效率的问题，请看[C++11的移动语义和右值引用]({{ site.url }}/jekyll/update/2014/07/12/new-features-in-c++11/)。
 
 
 另一方面，由于绝大多数（也许99.9%）编译器都支持(N)RVO和Copy Elision，

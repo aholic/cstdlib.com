@@ -10,3 +10,4 @@ detach: TRUE
 # Build settings
 markdown: kramdown
 permalink: pretty
+
