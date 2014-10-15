@@ -37,6 +37,7 @@ a:visited { color: #205caa; }
   zoom: 1;
 }
 
+li img {max-width: 100%}
 
 /* Layout Styles */
 /* ----------------------------------------------------------*/
