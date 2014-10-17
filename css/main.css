@@ -38,6 +38,8 @@ a:visited { color: #205caa; }
 }
 
 li img {max-width: 100%}
+ul p,
+li p {margin-top: 20px}
 
 /* Layout Styles */
 /* ----------------------------------------------------------*/
