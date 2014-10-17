@@ -7,24 +7,6 @@
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-
-    <script src="/js/jquery.min.js"></script>
-    <script type="text/javascript">
-      function openLinkInNewWindow () {
-        $('a[href^="http"]').each(function(){
-          $(this).attr('target', '_blank');
-        });
-      }
-      $(document).ready(openLinkInNewWindow);
-    </script>
-    <script>
-      var _hmt = _hmt || [];
-      (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?408685a6886021729bdbbbc85794519b";
-        var s = document.getElementsByTagName("script")[0]; 
-        s.parentNode.insertBefore(hm, s);
-      })();
-    </script>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/default.css">
 </head>
