@@ -132,6 +132,7 @@ categories: jekyll update
   依次是：服务名（/etc/services文件中定义）、套接字类型、协议、等待标志、用户名、完整路径名、命令行参数。
 
   **`inetd`**守护进程的工作流程如下图所示：
+
   ![inetd_procedure](/image/inetd_procedure.png)
 
   1. 读取配置文件，为配置文件中的每一行的内容创建一个套接字，

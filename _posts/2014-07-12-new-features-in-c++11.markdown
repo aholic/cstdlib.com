@@ -7,21 +7,19 @@ categories: jekyll update
 
 前段时间看完了`《STL源码剖析》`，觉得对C++又有了更多的认识和理解。
 
-{% highlight c++ %}
-//assume v is vector of int
-vector<int> v;
+    //assume v is vector of int
+    vector<int> v;
 
-//find max element in vector<int>
-int maxNum = MIN_INT;
-for (size_t i = 0; i < v.size(); i++) {
-    if (maxNum < v[i]) {
-        maxNum = v[i];
+    //find max element in vector<int>
+    int maxNum = MIN_INT;
+    for (size_t i = 0; i < v.size(); i++) {
+        if (maxNum < v[i]) {
+            maxNum = v[i];
+        }
     }
-}
 
-//or use STL do it
-vector<int>::iterator maxNum = max_element(v.begin()， v.end());
-{% endhighlight %}
+    //or use STL do it
+    vector<int>::iterator maxNum = max_element(v.begin()， v.end());
 
 以前我觉得我一定会写出以上代码中的第一种方法。
 可是对比第二种方法，优雅程度高下立判。
@@ -38,29 +36,25 @@ vector<int>::iterator maxNum = max_element(v.begin()， v.end());
 也就是说，在移动之后，源对象的资源没有了，被转移到新的对象里面了。
 举个具体的例子，一个正常的类，拷贝构造函数会做两件事：1.申请地址空间；2.将资源复制过来。
 
-{% highlight c++ %}
-struct Foo {
-    char* _data;
-    size_t _length;
-    Foo(const Foo& obj) {
-        _length = obj._length;
-        _data = new char[obj._length + 1];
-        std::copy(obj._data, obj._data + _length, _data);
-    }
-};
-{% endhighlight %}
+    struct Foo {
+        char* _data;
+        size_t _length;
+        Foo(const Foo& obj) {
+            _length = obj._length;
+            _data = new char[obj._length + 1];
+            std::copy(obj._data, obj._data + _length, _data);
+        }
+    };
 
 但是，当obj是一个临时对象时，即obj不会在被其他地方用到，或者说obj的生命周期要结束了，
 那这次复制就显得很浪费，因为可以直接把它从obj中“移动过来”。
 也就是说，需要这么一个构造函数：
 
-{% highlight c++ %}
-Foo(dying Foo& obj) {
-    _length = obj._length;
-    _data = obj._data;
-    obj._data = nullptr;
-}
-{% endhighlight %}
+    Foo(dying Foo& obj) {
+        _length = obj._length;
+        _data = obj._data;
+        obj._data = nullptr;
+    }
 
 当然，dying不是一个C++关键字，只是为了表示obj的生命周期即将结束，或者说是`“将亡”`。
 如果有了这么一个构造函数来处理临时对象的问题，那么C++中广为诟病的临时对象效率问题将会被很好的解决。
@@ -78,70 +72,64 @@ Foo(dying Foo& obj) {
 C++中加入了一个新的引用类型——右值引用。他的语法是**`&&`**。突出特点是可以用它来绑定到右值。
 有了右值引用，前文提到的`“移动构造函数”`可以被很方便的实现：
 
-{% highlight c++ %}
-Foo(Foo&& obj) {
-    _length = obj._length;
-    _data = obj._data;
-    obj._data = nullptr;
-}
-{% endhighlight %}
+    Foo(Foo&& obj) {
+        _length = obj._length;
+        _data = obj._data;
+        obj._data = nullptr;
+    }
 
 为了产生右值，C++11的标准库提供了**`std::move`**，它的作用很简单，把他的参数作为一个右值返回。
 move容易被误用，例如以下代码：
 
-{% highlight c++ %}
-#include <iostream>
-#include <cstring>
+    #include <iostream>
+    #include <cstring>
 
-using namespace std;
+    using namespace std;
 
-struct Foo {
-    int* _data;
-    Foo(int data) : _data(new int(data)) {}
-    Foo(Foo&& obj) : _data(obj._data) {
-        obj._data = nullptr;
+    struct Foo {
+        int* _data;
+        Foo(int data) : _data(new int(data)) {}
+        Foo(Foo&& obj) : _data(obj._data) {
+            obj._data = nullptr;
+        }
+    };
+
+    int main() {
+        Foo foo1(100);
+        Foo foo2(move(foo1));
+        cout << *(foo1._data) << endl;
+        return 0;
     }
-};
-
-int main() {
-    Foo foo1(100);
-    Foo foo2(move(foo1));
-    cout << *(foo1._data) << endl;
-    return 0;
-}
-{% endhighlight %}
 
 上面的代码运行时会出现`segment fault`，因为`foo1._data`已经在移动构造函数中被置为了`nullptr`。
 这个错误的根源是一个对象的生命周期还没结束，就把它的资源“move”给别的对象了。
 所以当需要使用move时，应该明确这个对象的生命周期要结束了，或者是这个对象以后不再被使用了。
 接下来再看一个正确使用**`std::move`**的例子：
 
-{% highlight c++ %}
-#include <iostream>
-using namespace std;
+    #include <iostream>
+    using namespace std;
 
-struct Resource {
-    int *_data;
-    int _sz;
-    Resource(int sz) : sz(sz), _data(new int[sz]) {}
-    ~Resource() {delete [] _data;}
-    Resource(Resource&& res) : _sz(res._sz), _data(res._data) {
-        res._data = nullptr;
+    struct Resource {
+        int *_data;
+        int _sz;
+        Resource(int sz) : sz(sz), _data(new int[sz]) {}
+        ~Resource() {delete [] _data;}
+        Resource(Resource&& res) : _sz(res._sz), _data(res._data) {
+            res._data = nullptr;
+        }
+    };
+
+    struct Foo {
+        Resource _res;
+        Foo(int sz) : _res(sz) {}
+        Foo(Foo&& foo) : _res(move(foo._res)) {}
+    };
+
+    int main() {
+        Foo foo1(1024);
+        Foo foo2(foo1);
+        return 0;
     }
-};
-
-struct Foo {
-    Resource _res;
-    Foo(int sz) : _res(sz) {}
-    Foo(Foo&& foo) : _res(move(foo._res)) {}
-};
-
-int main() {
-    Foo foo1(1024);
-    Foo foo2(foo1);
-    return 0;
-}
-{% endhighlight %}
 
 在以上代码中定义了Foo和Res两个类，Foo包含了Res类。
 在Foo的移动构造函数中，为了调用了成员\_res的移动构造函数，对其使用了**`std::move`**。

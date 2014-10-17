@@ -7,24 +7,22 @@ categories: jekyll update
 
 我当C++助教的时候，曾今看过这么一段代码：
 
-{% highlight c++%}
-map<string, int> GetWordCounter(string fileName) {
-    map<string, int> wordCounter;
-    //read file 
-    //fill the map
-    return wordCounter;
-}
+    map<string, int> GetWordCounter(string fileName) {
+        map<string, int> wordCounter;
+        //read file 
+        //fill the map
+        return wordCounter;
+    }
 
-vector<pair<string, int> > GetTopWords(map<string, int> wordCounter, int top) {
-    vector<pair<string, int> > topWords;
-    // find words with max number of occurrences
-    // ...
-    return topWords;
-}
+    vector<pair<string, int> > GetTopWords(map<string, int> wordCounter, int top) {
+        vector<pair<string, int> > topWords;
+        // find words with max number of occurrences
+        // ...
+        return topWords;
+    }
 
-//call the function GetTopWords to find top100 words
-vector<pair<string, int> > topWords = GetTopWords(GetWordCounter("input.txt"), 100);
-{% endhighlight%}
+    //call the function GetTopWords to find top100 words
+    vector<pair<string, int> > topWords = GetTopWords(GetWordCounter("input.txt"), 100);
 
 当时我一看这代码就很瞎，然后我就告诉他：
 
@@ -58,14 +56,12 @@ vector<pair<string, int> > topWords = GetTopWords(GetWordCounter("input.txt"), 1
 RVO指的是编译器让调用函数在其栈上分配空间，然后将这块内存的地址传递给被调函数，被调函数直接在这块内存上构造返回值。
 这样就消除从函数内部return出来时临时对象的复制问题。例如如下代码：
 
-{% highlight c++%}
-struct Foo {
-    Foo(int) { cout << "ctr" << endl; }
-    Foo(const Foo& foo) { cout << "cp" << endl; }
-};
-Foo getFoo() {return Foo(1024);}
-Foo foo = getFoo();
-{% endhighlight %}
+    struct Foo {
+        Foo(int) { cout << "ctr" << endl; }
+        Foo(const Foo& foo) { cout << "cp" << endl; }
+    };
+    Foo getFoo() {return Foo(1024);}
+    Foo foo = getFoo();
 
 按常理来说，在`getFoo`函数体内部的表达式`Foo(1024)`中会构造一份Foo临时对象，
 然后将这个临时对象拷贝到返回值返回值存储区，
@@ -75,28 +71,24 @@ Foo foo = getFoo();
 
 而NRVO指的是如下代码，也能被以类似的方式优化：
 
-{% highlight c++%}
-struct Foo {
-    Foo(int) { cout << "ctr" << endl; }
-    Foo(const Foo& foo) { cout << "cp" << endl; }
-};
-Foo getFoo() {Foo foo(1024); return foo;}
-Foo foo = getFoo();
-{% endhighlight %}
+    struct Foo {
+        Foo(int) { cout << "ctr" << endl; }
+        Foo(const Foo& foo) { cout << "cp" << endl; }
+    };
+    Foo getFoo() {Foo foo(1024); return foo;}
+    Foo foo = getFoo();
 
 #### **Copy Elision** ####
 Copy Elision，即**`复制省略`**。
 复制省略指的是，当函数参数以值传递的方式传入函数内部时，通常要求建立一份参数的拷贝。
 当传入的参数是右值时，则无需建立这样一份拷贝，直接使用源对象即可。例如如下代码：
 
-{% highlight c++%}
-struct Foo {
-    Foo(int) { cout << "ctr" << endl; }
-    Foo(const Foo& foo) { cout << "cp" << endl; }
-};
-void useFoo(Foo foo) {}
-useFoo(Foo(10));
-{% endhighlight %}
+    struct Foo {
+        Foo(int) { cout << "ctr" << endl; }
+        Foo(const Foo& foo) { cout << "cp" << endl; }
+    };
+    void useFoo(Foo foo) {}
+    useFoo(Foo(10));
 
 理论上来说，在调用`useFoo(Foo(10))`时，
 先由`Foo(10)`来构造一个Foo对象，
@@ -107,16 +99,14 @@ useFoo(Foo(10));
 (N)RVO和Copy Elision都只能解决部分临时对象的问题。
 例如以下代码，Copy Elision便无能为力了：
 
-{% highlight c++%}
-struct Foo {
-    Foo(int) { cout << "ctr" << endl; }
-    Foo(const Foo& foo) { cout << "cp" << endl; }
-};
-void useFoo(Foo foo) {}
+    struct Foo {
+        Foo(int) { cout << "ctr" << endl; }
+        Foo(const Foo& foo) { cout << "cp" << endl; }
+    };
+    void useFoo(Foo foo) {}
 
-Foo foo(10);
-useFoo(foo);
-{% endhighlight %}
+    Foo foo(10);
+    useFoo(foo);
 
 在上面代码中，将`foo`传入函数`useFoo`时，复制省略无法被启用，
 因为源对象以后还会被用到，所以不能直接使用源对象。
