@@ -19,7 +19,7 @@ categories: jekyll update
     }
 
     //or use STL do it
-    vector<int>::iterator maxNum = max_element(v.begin()， v.end());
+    vector<int>::iterator maxNum = max_element(v.begin(), v.end());
 
 以前我觉得我一定会写出以上代码中的第一种方法。
 可是对比第二种方法，优雅程度高下立判。
