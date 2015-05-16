@@ -211,7 +211,7 @@ categories: jekyll update
 #### **相关阅读** ####
 \[1\]：[Threads and fork(): think twice before mixing them](http://www.linuxprogrammingblog.com/threads-and-fork-think-twice-before-using-them)    
 \[2\]：[RFC2616](http://www.ietf.org/rfc/rfc2616.txt)    
-\[3\]：[写了一个简单的CGI Server](http://armsword.com/2014/05/18/light-cgi-server/)
-\[4\]：[tinyhttpd源码分析](http://blog.sina.com.cn/s/blog_a5191b5c0102v9yr.html)
-\[5\]：[HTTP协议头部与Keep-Alive模式详解](https://www.byvoid.com/blog/http-keep-alive-header/)
-\[6\]：[C++11并发指南](http://www.cnblogs.com/haippy/)
+\[3\]：[写了一个简单的CGI Server](http://armsword.com/2014/05/18/light-cgi-server/)    
+\[4\]：[tinyhttpd源码分析](http://blog.sina.com.cn/s/blog_a5191b5c0102v9yr.html)    
+\[5\]：[HTTP协议头部与Keep-Alive模式详解](https://www.byvoid.com/blog/http-keep-alive-header/)    
+\[6\]：[C++11并发指南](http://www.cnblogs.com/haippy/)    
