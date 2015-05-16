@@ -37,6 +37,7 @@ a:visited { color: #205caa; }
   zoom: 1;
 }
 
+p img {max-width: 100%}
 li img {max-width: 100%}
 ul p,
 li p {margin-top: 20px}
