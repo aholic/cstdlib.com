@@ -71,44 +71,44 @@ Yaf框架的控制层接口的执行是在以上的第2步，使用Yaf框架时�
 
 #### **问题记录** ####
 
-##### **Yaf框架要求运行时Yaf_Application是单例** #####
++ ##### **Yaf框架要求运行时Yaf_Application是单例** #####
   
-所以借用Yaf_Registry来实现这个单例
+  所以借用Yaf_Registry来实现这个单例
 
-    class TestController extends PHPUnit_Framework_TestCase {
-        private $__application = null;
-        public function __construct() {
-            $this->__application = Yaf_Registry::get('Application');
-            if ($this->__application == null) {
-                $this->__application = new Yaf_Application(ROOT_PATH."/conf/application.ini");
-                Yaf_Registry::set('Application', $this->__application);
-                Yaf_Registry::set('config', $this->__application->getConfig());
-            }
-        }
-    }
+      class TestController extends PHPUnit_Framework_TestCase {
+          private $__application = null;
+          public function __construct() {
+              $this->__application = Yaf_Registry::get('Application');
+              if ($this->__application == null) {
+                  $this->__application = new Yaf_Application(ROOT_PATH."/conf/application.ini");
+                  Yaf_Registry::set('Application', $this->__application);
+                  Yaf_Registry::set('config', $this->__application->getConfig());
+              }
+          }
+      }
 
-##### **控制层接口怎么输出** #####
++ ##### **控制层接口怎么输出** #####
 
-我以前的的控制层代码，输出总是很暴力的：
+  我以前的的控制层代码，输出总是很暴力的：
+  
+      //return {'userID' : '2', 'userNick' : 'ahoLic'} to client
+      die(json_encode(array('userID' => '2', 'userNick' => 'ahoLic')));
 
-    //return {'userID' : '2', 'userNick' : 'ahoLic'} to client
-    die(json_encode(array('userID' => '2', 'userNick' => 'ahoLic')));
+  真的很暴力，直接停止了当前进程，哈哈。目前用起来没有什么问题，但是有个潜在的问题，那就是万一框架拿到控制层接口还要包装一点什么的时候，就被你直接无情的略过了，以后一定不能再这么暴力了。用Yaf框架，要这么写：
+  
+      return $this->getResponse()->setBody(json_encode(array('userID' => '2', 'userNick' => 'ahoLic')));
 
-真的很暴力，直接停止了当前进程，哈哈。目前用起来没有什么问题，但是有个潜在的问题，那就是万一框架拿到控制层接口还要包装一点什么的时候，就被你直接无情的略过了，以后一定不能再这么暴力了。用Yaf框架，要这么写：
+  关于这个不想解释得太多，因为我也没法解释，这个就是用Yaf这个框架就是这样的。
 
-    return $this->getResponse()->setBody(json_encode(array('userID' => '2', 'userNick' => 'ahoLic')));
++ ##### **yaf.use_spl_autoload** #####
 
-关于这个不想解释得太多，因为我也没法解释，这个就是用Yaf这个框架就是这样的。
+  php.ini里面记得加上：
 
-##### **yaf.use_spl_autoload** #####
+      yaf.use_spl_autoload=1
 
-php.ini里面记得加上：
+  主要影响的是当解释器找不到一个类时去哪找这个类，其实这个我不是很懂，感觉和PHPUnit的命名空间也有点关系，我是真的不懂PHP啊，特别是他的命名空间，真心不懂，也不想懂。另外拜托各位面试我的时候不要问我PHP是前端语言还是后端语言好么，问这样的问题真的好么？
 
-    yaf.use_spl_autoload=1
-
-主要影响的是当解释器找不到一个类时去哪找这个类，其实这个我不是很懂，感觉和PHPUnit的命名空间也有点关系，我是真的不懂PHP啊，特别是他的命名空间，真心不懂，也不想懂。另外拜托各位面试我的时候不要问我PHP是前端语言还是后端语言好么，问这样的问题真的好么？
-
-#### 代码结构的组织在哪 ####
+#### **有demo吗？** ####
 
 简单的代码组织结构可以看[这个](https://github.com/aholic/yaf-phpunit)
 
