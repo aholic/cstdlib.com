@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "在基于Yaf的项目中，使用PHPUnit做单元测试"
+title:  "如何使用PHPUnit测试Yaf的控制层"
 date:   2015-05-23 13:58:32
 categories: jekyll update
 ---
