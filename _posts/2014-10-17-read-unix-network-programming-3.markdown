@@ -2,7 +2,9 @@
 layout: post
 title:  "读《UNIX网络编程 卷1：套接字联网API》[下]"
 date:   2014-10-17 13:58:32
-categories: jekyll update
+categories: tech
+keywords: "服务端程序结构，客户端程序结构"
+description: "本文介绍了常见的服务端程序结构和客户端程序结构，总结了各种结构的优缺点"
 ---
 
 在[上一篇](/jekyll/update/2014/10/14/read-unix-network-programming-2/)中，

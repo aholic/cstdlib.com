@@ -2,7 +2,9 @@
 layout: post
 title:  "Web Server 和 HTTP协议"
 date:   2015-05-17 13:58:32
-categories: jekyll update
+categories: tech
+keywords: "C++11, HTTP, server, thread, lock, mutex, socket, tinyhttpd"
+description: "本文介绍了一个简单的C++服务框架的基本实现"
 ---
 
 一直在找实习，有点什么东西直接就在evernote里面记了，也没时间来更新到这里。找实习真是个蛋疼的事，一直找的是困难模式的C++的后台开发这种职位，主要是因为其他的更不会了。虽然找的是C++的职位，但是我的简历有俩项目都是php的，因为老赵的项目就是用php做网站。最近越来越感觉这样的简历不靠谱，想换个C++的和网络有关的多线程的项目吧。所以最近准备点几个网络和多线程的技能点。于是我看了[tinyhttpd](http://sourceforge.net/projects/tinyhttpd/)、[LightCgiServer](https://github.com/imyouxia/LightCgiServer)和吴导的[husky](https://github.com/yanyiwu/husky)。基本上对着吴导的husky抄了个[paekdusan](https://github.com/aholic/paekdusan)，但是也不能纯粹的抄一遍啊，所以还是改了一些小东西，大的框架没变。主要的改变包括以下几方面：

@@ -2,7 +2,9 @@
 layout: post
 title:  "如何使用PHPUnit测试Yaf的控制层"
 date:   2015-05-23 13:58:32
-categories: jekyll update
+categories: tech
+keywords: "phpunit, yaf, 控制层, 单元测试"
+description: "本文主要介绍了如何使用phpunit对yaf的控制层进行单元测试"
 ---
 
 #### **背景** #####

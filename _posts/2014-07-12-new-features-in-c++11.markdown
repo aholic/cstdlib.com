@@ -2,7 +2,9 @@
 layout: post
 title:  "C++11中的新特性"
 date:   2014-07-12 02:56:34
-categories: jekyll update
+categories: tech
+keywords: "c++, c++11, move semantics, 移动语义, rvalue reference, 右值引用"
+description: "本文主要介绍了C++11中的移动语义（move semantics）和右值引用（rvalue reference）的由来和用法"
 ---
 
 前段时间看完了`《STL源码剖析》`，觉得对C++又有了更多的认识和理解。

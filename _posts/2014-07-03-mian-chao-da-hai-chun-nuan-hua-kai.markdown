@@ -2,7 +2,9 @@
 layout: post
 title:  "面朝大海，春暖花开"
 date:   2014-07-03 19:59:44
-categories: jekyll update
+categories: life
+keywords: "海子, 诗歌, 面朝大海, 春暖花开, 幸福"
+description: "海子的诗，面朝大海，春暖花开"
 ---
 
 ###海子

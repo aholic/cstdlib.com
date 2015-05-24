@@ -2,23 +2,25 @@
 layout: post
 title:  "读《UNIX网络编程 卷1：套接字联网API》[中]"
 date:   2014-10-14 11:31:32
-categories: jekyll update
+categories: tech
+keywords: "阻塞, 非阻塞, I/O复用, 信号驱动, 异步I/O, I/O模型, inetd, 守护进程"
+description: "本文介绍了各种I/O模型（阻塞，非阻塞，I/O复用，信号驱动，异步I/O），以及守护进程和inetd的工作原理"
 ---
 
-在[上一篇](/jekyll/update/2014/10/09/read-unix-network-programming-1/)中，
+在[上一篇](/tech/2014/10/09/read-unix-network-programming-1/)中，
 主要介绍了TCP的连接、断开的过程以及过程中会遇到的问题
 和主机崩溃、主机重启、主机关机等不正常工作环境下TCP的工作行为。
-接[上篇](/jekyll/update/2014/10/09/read-unix-network-programming-1/)，
+接[上篇](/tech/2014/10/09/read-unix-network-programming-1/)，
 这一篇主要介绍各种I/O模型和守护进程以及inetd的工作原理。
 
 + TCP和UDP的工作过程
 + TCP连接在“非正常”情况下的工作状况
-+ 各种I/O模型（阻塞/非阻塞/IO复用/信号驱动/异步）
++ 各种I/O模型（阻塞 / 非阻塞 / I/O复用 / 信号驱动 / 异步I/O）
 + 守护进程和inetd的工作原理
 + 服务器程序设计范式
 + 客户端程序设计范式
 
-#### **各种I/O模型（阻塞/非阻塞/IO复用/信号驱动/异步）** #####
+#### **各种I/O模型（阻塞 / 非阻塞 / I/O复用 / 信号驱动 / 异步I/O ）** #####
 
 + ##### **阻塞式I/O模型** #####
 

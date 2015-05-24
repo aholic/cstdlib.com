@@ -1,7 +1,9 @@
 # Site settings
 title: 标准酷
 email: ruochen.xu@gmail.com
-description: "京ICP备14040458号"
+description: "个人博客，记录日常工作生活中遇到的问题，主要关于服务器编程，web，多线程，并发，网络，C++等后端技术"
+keywords: "server, 服务器, web, c++, cplusplus, network, 网络, concurrency, 并发, multi-thread, 多线程"
+icp: "京ICP备14040458号"
 baseurl: ""
 url: "http://cstdlib.com"
 port: 8080

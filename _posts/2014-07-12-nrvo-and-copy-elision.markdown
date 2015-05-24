@@ -2,7 +2,9 @@
 layout: post
 title:  "编译器关于临时对象的优化"
 date:   2014-07-12 08:42:35
-categories: jekyll update
+categories: tech
+keywords: "c++, 返回值优化, nrvo, named return value optimization, 拷贝折叠, copy elision"
+description: "本文主要介绍了C++程序中，编译器做的返回值优化和拷贝折叠优化"
 ---
 
 我当C++助教的时候，曾今看过这么一段代码：

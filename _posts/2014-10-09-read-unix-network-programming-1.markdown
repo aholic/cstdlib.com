@@ -2,7 +2,9 @@
 layout: post
 title:  "读《UNIX网络编程 卷1：套接字联网API》[上]"
 date:   2014-10-09 10:56:33
-categories: jekyll update
+categories: tech
+keywords: "UNIX网络编程, unix network programming, UNP, tcp, udp, 三次握手, 四次挥手"
+description: "本文介绍了TCP和UDP的工作过程，TCP连接建立时的三次握手、连接断开时的四次挥手，非正常网络状态下TCP的工作状况"
 ---
 
 最近看了《UNIX网络编程 卷1：套接字联网API》，
