@@ -65,26 +65,26 @@ t.C是一个只读队列，无法调用close。
 
     func startTimer(f func(now time.Time)) chan bool {
         done := make(chan bool, 1)
-	      go func() {
-		        t := time.NewTimer(time.Second * 3)
-		        defer t.Stop()
-		        for {
-			          select {
-		    	      case now := <-t.C:
-				            f(now)
-			          case <-done:
-				            fmt.Println("done")
-				            return
+        go func() {
+            t := time.NewTimer(time.Second * 3)
+            defer t.Stop()
+            for {
+                select {
+                case now := <-t.C:
+                    f(now)
+                case <-done:
+                    fmt.Println("done")
+                    return
                 }
-		        }
-	      }()
-	      return done
+            }
+        }()
+        return done
     }
 
-	  done := startTimer(func(now time.Time) {
+    done := startTimer(func(now time.Time) {
         fmt.Println(now)
-	  })
-	  time.Sleep(1 * time.Second)
-	  close(done)
+    })
+    time.Sleep(1 * time.Second)
+    close(done)
     
 select的其他实用的用法看看[这里](http://yanyiwu.com/work/2014/11/08/golang-select-typical-usage.html)
