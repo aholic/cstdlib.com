@@ -41,7 +41,7 @@ description: "本文介绍了如何在Go语言中实现可取消的定时器"
     t.Stop()
     <-done
     
-直觉上来看，那个新起的goroutine在等待的过程中，主线程会把定时器关掉，然后直接输出“after 3 seconds”，然后程序皆大欢喜的结束，然而显示会打烂你的脸，输出会是这样：
+直觉上来看，那个新起的goroutine在等待的过程中，主线程会把定时器关掉，然后直接输出“after 3 seconds”，然后程序皆大欢喜的结束，然而现实会打烂你的脸，输出会是这样：
 
     $go run main.go 
     fatal error: all goroutines are asleep - deadlock!
