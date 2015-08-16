@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "goroutine安全的带缓冲的Pipe"
+title:  "实现goroutine安全并且带缓冲的Pipe"
 date:   2015-08-16 13:58:32
 categories: tech
-keywords: "go, golang, goroutine安全, 线程安全, 缓冲, buffer"
-description: "本文介绍了go语言中goroutine安全的带缓冲的pipe的实现"
+keywords: "go, golang, goroutine safe, 线程安全, 缓冲, buffer"
+description: "本文介绍了Go语言中goroutine安全的带缓冲的pipe的实现"
 ---
 
 #### **需求** ####
