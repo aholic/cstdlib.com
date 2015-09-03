@@ -68,14 +68,12 @@ t.C是一个只读队列，无法调用close。
         go func() {
             t := time.NewTimer(time.Second * 3)
             defer t.Stop()
-            for {
-                select {
-                case now := <-t.C:
-                    f(now)
-                case <-done:
-                    fmt.Println("done")
-                    return
-                }
+            select {
+            case now := <-t.C:
+                f(now)
+            case <-done:
+                fmt.Println("done")
+                return
             }
         }()
         return done
@@ -88,3 +86,4 @@ t.C是一个只读队列，无法调用close。
     close(done)
     
 select的其他实用的用法看看[这里](http://yanyiwu.com/work/2014/11/08/golang-select-typical-usage.html)
+本文源码见[github](https://github.com/aholic/ggtimer)
