@@ -119,4 +119,4 @@ Copy Elision，即**`复制省略`**。
 当需要在函数内部复制构造参数时，传递引用然后拷贝构造是很愚蠢的做法，直接传值是更好的做法。
 因为直接传值的话，编译器能利用一些优化措施优化自然更好，即使不能优化，也不会更糟。
 为此，大神[Dave Abrahams](http://en.wikipedia.org/wiki/David_Abrahams_(computer_programmer))
-写下了著名的[want spped? pass by value](http://fpcfjf.blog.163.com/blog/static/5546979320133174350249/)
+写下了著名的[want speed? pass by value](http://fpcfjf.blog.163.com/blog/static/5546979320133174350249/)
